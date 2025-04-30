@@ -5,7 +5,7 @@ const usuariosController = {
         try{
             const {nome, email, idade} = req.body
             const [result] = await connection.execute(
-                'INSERT INTO usuarios (nome, email, idade) VALUES (?, ?, ?)'
+                'INSERT INTO usuarios (nome, email, idade) VALUES (?, ?, ?)',
                 [nome, email, idade]
             );  
 
@@ -22,8 +22,25 @@ const usuariosController = {
                 error: error.message
             })
         }
-    }
+    },
 
+    async listarUsuarios(req, res){
+        try {
+            const [todosUsuarios] = await connection.execute('SELECT * FROM usuarios');
+
+            return res.status(201).json({
+                sucess: true,
+                count: todosUsuarios.length,
+                data: todosUsuarios
+            })
+        } catch (error) {
+            return res.status(500).json({
+                succes: false,
+                message: "Houve um erro ao encontrar usuarios",
+                error: error.message
+            })
+        }
+    }
 }
 
 export default usuariosController

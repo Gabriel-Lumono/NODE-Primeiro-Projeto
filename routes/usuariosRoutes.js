@@ -3,6 +3,7 @@ import usuariosController from '../controllers/usariosController.js';
 
 const router = express.Router();
 
-router.post('/user', usuariosController.criar) //http://localhost/api/users
+router.post('/users', usuariosController.criar) //http://localhost/api/users
+router.get('/users', usuariosController.listarUsuarios)
 
 export default router;
